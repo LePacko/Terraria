@@ -3,9 +3,40 @@ package geometrie;
 import java.util.ArrayList;
 import java.util.Collections;
 
+/**
+ * <h1>Un Polygone est une liste ordonnée de Points appelés sommets.</h1>
+ * <p>Un Polygone peut :
+ * 	<ul>
+ * 		<li>En copier un autre</li>
+ * 		<li>Retourne un point à une position donnée</li>
+ * 		<li>Ajouter un vecteur à chaque point</li>
+ * 		<li>Ajouter un sommet</li>
+ * 		<li>Dire s'il contient un point</li>
+ * 		<li>Donner son nombre de sommets</li>
+ * 		<li>Dire s'il est inclus dans un rectangle</li>
+ * 		<li>S'ordonner de façon à être affichable en console</li>
+ * 		<li>Donner les extrêmes de ses points</li>
+ * 		<li>S'afficher</li>
+ * </ul>
+ * La classe Polygone permet de manipuler facilement des ensembles de points
+ * utiles notamment lors des opérations de collisions.
+ * </p>
+ * @see Point
+ * @see Vecteur
+ * 
+ * @author Mathys
+ * @version 2.0
+ */
+
 public class Polygone {
 	
 	ArrayList<Point> listeSommets ;
+	
+	/**
+	 * Constructeur permettant d'initialiser rapidement un polygone vide
+	 * 
+	 * @since 1.0
+	 */
 	
 	public Polygone () {
 		
@@ -13,7 +44,12 @@ public class Polygone {
 
 	}
 	
-	// Initialise la liste de sommets avec des points � 0:0
+	/**
+	 * Crée un Polygone de nbSommets initialisés à 0:0
+	 * 
+	 * @param nbSommets
+	 * @since 2.0
+	 */
 	
 	public Polygone (int nbSommets) {
 		
@@ -25,6 +61,15 @@ public class Polygone {
 			this.ajouterSommet(new Point (0, 0)) ;
 		
 	}
+	
+	/**
+	 * Crée un polygone de nbSommets initialisés à x:y
+	 * 
+	 * @param nbSommet
+	 * @param x
+	 * @param y
+	 * @since 2.0
+	 */
 	
 	public Polygone (int nbSommet, double x, double y) {
 		
@@ -39,6 +84,14 @@ public class Polygone {
 		
 	}
 	
+	/**
+	 * Crée un Polygone composé des points entrés en paramètre
+	 * dans l'ordre
+	 * 
+	 * @param points
+	 * @since 2.0
+	 */
+	
 	public Polygone (Point...points) {
 		
 		this() ;
@@ -51,9 +104,18 @@ public class Polygone {
 		
 	}
 	
+	/**
+	 * Copie le contenu d'un autre polygone dans celui-ci
+	 * 
+	 * @param polygone
+	 * @since 2.0
+	 */
+	
 	public void copie (Polygone polygone) {
 		
 		int i ;
+		
+		this.listeSommets = new ArrayList<Point> () ;
 		
 		for (i = 0 ; i < polygone.nbSommets() ; i ++) {
 			
@@ -63,11 +125,27 @@ public class Polygone {
 		
 	}
 	
+	/**
+	 * Retourne le point situé à l'indice i dans la liste
+	 * 
+	 * @param i
+	 * @return Point
+	 * @since 1.0
+	 */
+	
 	public Point get (int i) {
 		
 		return this.listeSommets.get(i) ;
 		
 	}
+	
+	/**
+	 * Ajoute les x et les y du vecteur à chaque point
+	 * du polygone
+	 * 
+	 * @param vecteur
+	 * @since 2.0
+	 */
 	
 	public void ajouterAChaquePoint (Vecteur vecteur) {
 		
@@ -105,7 +183,7 @@ public class Polygone {
 		
 		while (!trouve && i < this.nbSommets ()) {
 			
-			if (this.listeSommets.get(i).estEgalA(point))
+			if (this.listeSommets.get(i).compareTo(point) == 0)
 				
 				trouve = true ;
 			
@@ -159,7 +237,7 @@ public class Polygone {
 		
 			while (estEgal && i < this.nbSommets() && i < poly2.nbSommets()) {
 				
-				if (!this.get(i).estEgalA(poly2.get(i)))
+				if (!(this.get(i).compareTo(poly2.get(i)) == 0))
 					
 					estEgal = false ;
 				
@@ -356,7 +434,7 @@ public class Polygone {
 		
 		/*for (i = 0 ; i < this.nbSommets() ; i ++) {
 			
-			aff += "Point n�" + i + " : " + this.get(i).toString() + "\n" ;
+			aff += "Point n�" + i + " : " + this.get(i).toString() + "\n" ;
 			
 		}*/
 		
